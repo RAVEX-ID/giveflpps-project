@@ -6,7 +6,7 @@
 // spam requests at SteamGifts. If REFRESH_SECRET isn't set, this endpoint
 // refuses to run at all (fails closed, not open).
 
-const { runSync } = require("./sync-giveaways");
+const { runSync } = require("./lib/sync-runner");
 
 exports.handler = async (event) => {
   const configuredSecret = process.env.REFRESH_SECRET;
