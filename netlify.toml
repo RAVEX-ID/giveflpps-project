@@ -1,0 +1,21 @@
+[build]
+  publish = "public"
+  command = "npm install"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Friendly API paths for the frontend: /api/get-giveaways, /api/refresh
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# sync-giveaways.js is a *scheduled* function (declared via the `schedule()`
+# wrapper inside the file itself, which is the source of truth). This entry
+# mirrors that schedule for tooling/UI that reads it from netlify.toml —
+# keep both in sync if you change one.
+[functions."sync-giveaways"]
+  schedule = "*/30 * * * *"
